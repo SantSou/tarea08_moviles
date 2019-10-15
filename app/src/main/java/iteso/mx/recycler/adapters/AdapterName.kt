@@ -27,11 +27,15 @@ class AdapterName (private val users: List<ParseObject>): RecyclerView.Adapter<N
 
 class NameViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     private val userName: TextView = view.findViewById(R.id.item_title_name)
-    private val image: ImageView = view.findViewById(R.id.item_title_last_name)
+    private val userLastName: TextView = view.findViewById(R.id.item_title_last_name)
+    private val birthDate: TextView = view.findViewById(R.id.item_title_birth_date)
+    private val image: ImageView = view.findViewById(R.id.user_photo)
     
     fun bind(user: ParseObject) {
         val parseFile: ParseFile = user.get("photo") as ParseFile
         Glide.with(view).load(parseFile.url).into(image)
         userName.text = user.get("username") as String
+        userLastName.text = user.get("lastName") as String
+        birthDate.text = user.get("birthDate") as String
     }
 }

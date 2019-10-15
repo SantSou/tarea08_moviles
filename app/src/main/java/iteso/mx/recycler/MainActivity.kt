@@ -15,10 +15,7 @@ import org.jetbrains.anko.uiThread
 import java.io.File
 import java.util.*
 
-private var names = arrayListOf<String>()
-private var lastNames = arrayListOf<String>()
-private var birthDate = arrayListOf<Date>()
-private var photos = arrayListOf<File>()
+private var user_list = List<ParseObject>()
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.activity_main_names_rv)
 
-        recyclerView.adapter = AdapterName(names)
+        recyclerView.adapter = AdapterName(user_list)
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 }
@@ -36,14 +33,9 @@ class MainActivity : AppCompatActivity() {
 class feed {
     fun get_info(){
         var query = ParseQuery<ParseObject>("UserList")
-        query.findInBackground(FindCallback { user_list: List<ParseObject>, e ->
+        query.findInBackground(FindCallback { users: List<ParseObject>, e ->
             if(e == null)
-                for (user in user_list) {
-                    names.add(user.name)
-                    lastNames.add(user.lastName)
-                    birthDate.add(user.birthDate)
-                    photos.add(user.photo)
-                }
+                user_list = users
             else
                 error{e}
         })

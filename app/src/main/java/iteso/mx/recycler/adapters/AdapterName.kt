@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.parse.ParseObject
 import iteso.mx.recycler.R
 
-class AdapterName (private val names: ArrayList<HashMap<String, String>>): RecyclerView.Adapter<NameViewHolder>() {
+class AdapterName (private val names: List<ParseObject>): RecyclerView.Adapter<NameViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NameViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_name, parent, false)
@@ -17,7 +18,7 @@ class AdapterName (private val names: ArrayList<HashMap<String, String>>): Recyc
     override fun getItemCount(): Int = names.size
 
     override fun onBindViewHolder(holder: NameViewHolder, position: Int) {
-        holder.bind(names[position])
+        holder.bind({names[position].get(name), names[position].get(lastName)})
     }
 }
 

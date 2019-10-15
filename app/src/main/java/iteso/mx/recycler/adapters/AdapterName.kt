@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.parse.ParseFile
 import com.parse.ParseObject
 import iteso.mx.recycler.R
@@ -24,7 +25,7 @@ class AdapterName (private val users: List<ParseObject>): RecyclerView.Adapter<N
     }
 }
 
-class NameViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class NameViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     private val userName: TextView = view.findViewById(R.id.item_title_name)
     private val image: ImageView = view.findViewById(R.id.item_title_last_name)
     

@@ -15,8 +15,6 @@ import org.jetbrains.anko.uiThread
 import java.io.File
 import java.util.*
 
-private var user_list = List<ParseObject>()
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,19 +23,13 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.activity_main_names_rv)
 
-        recyclerView.adapter = AdapterName(user_list)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val query: ParseQuery<ParseObject> = ParseQuery.getQuery("Feed")
+        query.findInBackground { objects, e ->
+            if (e == null) {
+                recyclerView.adapter = AdapterName(objects)
+                recyclerView.layoutManager = LinearLayoutManager(this)
+            }
+        }
     }
 }
 
-class feed {
-    fun get_info(){
-        var query = ParseQuery<ParseObject>("UserList")
-        query.findInBackground(FindCallback { users: List<ParseObject>, e ->
-            if(e == null)
-                user_list = users
-            else
-                error{e}
-        })
-    }
-}
